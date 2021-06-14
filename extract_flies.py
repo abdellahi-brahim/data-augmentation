@@ -1,13 +1,8 @@
 import cv2
 import numpy as np
-from util import xml_to_pandas, get_img
 
-image_path = "images\\"
-xml_path = "annots\\"
-aug_path = "aug_img\\"
-aug_xml_path = "aug_xml\\"
-fly_dataset = "fly_dataset\\"
-empty_stick = "empty\\"
+from util import xml_to_pandas, get_img
+from filepath import xml_path, fly_dataset, image_path
 
 labels_df = xml_to_pandas(xml_path)
 images_df = get_img(labels_df)

@@ -2,7 +2,6 @@
 import imgaug as ia
 from imgaug.augmentables.bbs import BoundingBoxesOnImage
 from imgaug import augmenters as iaa
-
 #Other utils
 import re
 #Image
@@ -11,6 +10,7 @@ import imageio
 import pandas as pd
 
 from util import xml_to_pandas, export_to_xml, get_img
+from filepath import xml_path, aug_path, aug_xml_path, image_path
 
 def image_aug(df, images_path, aug_images_path, image_prefix, augmentor):
     #create data frame which we're going to populate with augmented image info
@@ -71,13 +71,6 @@ def bbs_obj_to_df(bbs_object):
     return df_bbs
 
 ia.seed(1)
-
-image_path = "images\\"
-xml_path = "annots\\"
-aug_path = "aug_img\\"
-aug_xml_path = "aug_xml\\"
-fly_dataset = "fly_dataset\\"
-empty_stick = "empty\\"
 
 labels_df = xml_to_pandas(xml_path)
 
