@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+	<folder>--</folder>
+	<filename>--</filename>
+	<path>--</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>3456</width>
+		<height>5184</height>
+	</size>
+	<segmented>3</segmented>
+	<object>
+		<name>WF</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1392.0</xmin>
+			<ymin>789.0</ymin>
+			<xmax>1442.0</xmax>
+			<ymax>857.0</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>WF</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1734.0</xmin>
+			<ymin>1490.0</ymin>
+			<xmax>1784.0</xmax>
+			<ymax>1551.0</ymax>
+		</bndbox>
+	</object>
+</annotation>
