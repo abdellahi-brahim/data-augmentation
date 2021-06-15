@@ -65,8 +65,8 @@ for f in backgrounds:
         down_corner = tuple(np.add(center, t_off))
         
         if background.shape[1] > row.xmin + img_w and background.shape[0] > row.ymin + img_h:
-            background = blend(img, background, (row.ymin, row.xmin), method='Segmented')
-            #background = cv2.seamlessClone(img, background, mask, center, cv2.NORMAL_CLONE)
+            #background = blend(img, background, (row.ymin, row.xmin), method='Segmented')
+            background = cv2.seamlessClone(img, background, mask, center, cv2.NORMAL_CLONE)
         else:
             flies.append(fly)
             continue
