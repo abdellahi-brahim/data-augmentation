@@ -13,6 +13,11 @@ from util import xml_to_pandas, export_to_xml, get_img
 def get_fly(filename):
     image = cv2.imread(filename)
     mask = 255 * np.ones(image.shape, image.dtype)
+    
+    mask[:, -1] = 0
+    mask[:, 0] = 0
+    mask[-1, :] = 0
+    mask[0, :] = 0
 
     return image, mask
 
