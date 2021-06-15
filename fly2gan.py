@@ -6,7 +6,7 @@ import numpy as np
 
 from blending import blend
 from util import xml_to_pandas, get_img, export_to_xml
-from filepath import xml_path, fly_dataset, empty_stick, aug_path, aug_xml_path
+from filepath import xml_path, gan_path, empty_stick, aug_path, aug_xml_path
 
 def get_fly(filename):
     image = cv2.imread(filename)
@@ -18,7 +18,7 @@ labels_df = xml_to_pandas(xml_path)
 images_df = get_img(labels_df)
 
 backgrounds = images_df['filename'].unique()
-flies = os.listdir(fly_dataset)
+flies = os.listdir(gan_path)
 
 annotations = []
 
@@ -44,7 +44,7 @@ for f in backgrounds:
         break
 
     for fly, row in zip(sample, data.itertuples(index=True, name='Pandas')):
-        img, mask = get_fly(fly_dataset + fly)
+        img, mask = get_fly(gan_path + fly)
         img_w, img_h, _ = img.shape
 
         x_off = int(img_w/2)
@@ -65,11 +65,11 @@ for f in backgrounds:
             flies.append(fly)
             continue
         
-        annot = ['6'+f, background.shape[0], background.shape[1], 'WF']
+        annot = ['7'+f, background.shape[0], background.shape[1], 'WF']
         annot.extend(up_corner+down_corner)
         annotations.append(annot)
 
-    cv2.imwrite(aug_path + '6' + f, background)
+    cv2.imwrite(aug_path + '7' + f, background)
   
 column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
 new_df = pd.DataFrame(annotations, columns=column_name)

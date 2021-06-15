@@ -176,7 +176,7 @@ def generate_mask(image):
 
     return mask
 
-def blend(source, target, offset, mask='Total' ,method = 'normal'):
+def blend(source, target, offset, mask='Total', method = 'normal'):
     w, h, _ = source.shape
     
     if mask == 'Total':
