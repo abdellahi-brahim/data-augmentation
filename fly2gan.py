@@ -11,6 +11,11 @@ from filepath import xml_path, gan_path, empty_stick, aug_path, aug_xml_path
 def get_fly(filename):
     image = cv2.imread(filename)
     mask = 255 * np.ones(image.shape, image.dtype)
+    
+    mask[:, -1] = 0
+    mask[:, 0] = 0
+    mask[-1, :] = 0
+    mask[0, :] = 0
 
     return image, mask
 
@@ -58,8 +63,8 @@ for f in backgrounds:
         down_corner = tuple(np.add(center, t_off))
         
         if background.shape[1] > row.xmin + img_w and background.shape[0] > row.ymin + img_h:
-            background = blend(img, background, (row.ymin, row.xmin), method='Segmented')
-            #background = cv2.seamlessClone(img, background, mask, center, cv2.NORMAL_CLONE)
+            #background = blend(img, background, (row.ymin, row.xmin), method='Segmented')
+            background = cv2.seamlessClone(img, background, mask, center, cv2.NORMAL_CLONE)
         else:
             print(f"Background: {background.shape}\nLimits: {center}")
             flies.append(fly)
