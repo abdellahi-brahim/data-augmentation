@@ -177,9 +177,8 @@ def generate_mask(image):
     return mask
 
 def blend(source, target, offset, mask='Total', method = 'normal'):
-    w, h, _ = source.shape
-    
     if mask == 'Total':
+        w, h, _ = source.shape
         mask = np.ones([w, h], dtype=np.float64)
     elif mask == 'Segmented':
         mask = generate_mask(source)
