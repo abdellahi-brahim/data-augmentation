@@ -74,7 +74,7 @@ ia.seed(1)
 
 labels_df = xml_to_pandas(xml_path)
 
-images_df = get_img(labels_df, image_path, image_path, '')
+images_df = get_img(labels_df)
 
 aug_list = [
     iaa.Fliplr(1),
