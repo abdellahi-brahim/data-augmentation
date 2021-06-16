@@ -23,3 +23,5 @@ Aqui contém um guia da organização das moscas por índice. Terá de criar uma
 
 - [8]XXXX.jpg: Inserção de moscas retiradas das sticky traps
 - [9}XXXX.jpg: Inserção das moscas geradas pela gan
+
+Dataset disponível em: https://drive.google.com/drive/folders/1S1f_31UuHJiR712RLF7OiqrEicpXF3QD?usp=sharing
