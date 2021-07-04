@@ -26,7 +26,7 @@ for _, row in images_df.iterrows():
         img = cv2.imread(file_path)
         img_array = np.asarray(img)
 
-        w, h, _ = img.shape()
+        w, h, _ = img.shape
 
     #get bounding box coordinates from dataframe
     fileclass = row[3]
