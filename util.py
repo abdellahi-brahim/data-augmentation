@@ -7,12 +7,12 @@ import glob
 #Data Structures
 import xml.etree.ElementTree as ET
 import pandas as pd
+import numpy as np
 
 def export_to_xml(augmented_images_df, filepath):
     current = ''    
     xml = ''
     previous = ''
-    count = 0
     for _, row in augmented_images_df.iterrows():
         current = re.findall('\d+', row[0])[0] + '.xml'
         if(previous == ''):
@@ -28,7 +28,6 @@ def export_to_xml(augmented_images_df, filepath):
             xml += '\t<size>\n\t\t<width>{0}</width>\n'.format(row[1])
             xml += '\t\t<height>{0}</height>\n\t</size>\n\t<segmented>3</segmented>\n'.format(row[2])
             previous = current
-            count += 1
         if(not math.isnan(row[6])):
           xml += '\t<object>\n\t\t<name>{1}</name>\n\t\t<pose>Unspecified</pose>\n\t\t<truncated>0</truncated>\n\t\t<difficult>0</difficult>\n\t\t<bndbox>\n\t\t\t<{2}>{3}</{4}>\n\t\t\t<{5}>{6}</{7}>\n\t\t\t<{8}>{9}</{10}>\n\t\t\t<{11}>{12}</{13}>\n\t\t</bndbox>\n\t</object>\n'.format(row[2], row[3],row.index[4],row[4],row.index[4],row.index[5],row[5],row.index[5],row.index[6],row[6],row.index[6],row.index[7],row[7],row.index[7])
 
@@ -69,3 +68,13 @@ def get_img(df):
     aug_bbs_xy = aug_bbs_xy.reset_index()
     aug_bbs_xy = aug_bbs_xy.drop(['index'], axis=1)
     return aug_bbs_xy
+
+def img2mask(image):
+    mask = 255 * np.ones(image.shape, image.dtype)
+    
+    mask[:, -1] = 0
+    mask[:, 0] = 0
+    mask[-1, :] = 0
+    mask[0, :] = 0
+
+    return mask

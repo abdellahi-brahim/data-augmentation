@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-from util import xml_to_pandas, get_img
-from filepath import xml_path, fly_dataset, image_path
+from util import xml_to_pandas, get_img, img2mask
+from filepath import path, xml_path, fly_dataset, image_path
 
 labels_df = xml_to_pandas(xml_path)
 images_df = get_img(labels_df)
@@ -14,6 +14,10 @@ filename = None
 fileclass = None
 index = 0
 target_size = 100
+
+square = cv2.imread(path + "square-100.png")
+s_w, s_h, _ = square.shape
+center = (int(s_w/2), int(s_h))
 
 for _, row in images_df.iterrows():
     #new image
@@ -27,6 +31,8 @@ for _, row in images_df.iterrows():
         img_array = np.asarray(img)
 
         w, h, _ = img.shape
+    
+    inpaint = False
 
     #get bounding box coordinates from dataframe
     fileclass = row[3]
@@ -38,6 +44,8 @@ for _, row in images_df.iterrows():
 
     height = ymax - ymin
     weight = xmax - xmin
+
+    print(f"Height: {height}, Weight: {weight}")
     
     height_offset = 0
     weight_offset = 0
@@ -49,8 +57,7 @@ for _, row in images_df.iterrows():
 
         #check if new dimensions are valid
         if xmax+weight_offset > w or ymax+height_offset > h:
-            print("Dimensions exceeded")
-            #perform inpainting
+            inpaint = True
             continue
     else:
         #resize bounding box to square
@@ -64,5 +71,9 @@ for _, row in images_df.iterrows():
     sector = img_array[ymin-height_offset:ymax+height_offset, xmin-weight_offset:xmax+weight_offset]
 
     if sector.size == 0: continue
+
+    if inpaint:
+        mask = img2mask(sector)
+        sector = cv2.seamlessClone(sector, square, mask, center, cv2.NORMAL_CLONE)
     
     cv2.imwrite(fly_dataset + filename.replace('.jpg', '_' + fileclass + '_' + str(index) + '.jpg'), sector)
