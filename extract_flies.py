@@ -13,6 +13,7 @@ img_array = None
 filename = None
 fileclass = None
 index = 0
+target_size = 100
 
 for _, row in images_df.iterrows():
     #new image
@@ -24,6 +25,8 @@ for _, row in images_df.iterrows():
         #open new image
         img = cv2.imread(file_path)
         img_array = np.asarray(img)
+
+        w, h, _ = img.shape()
 
     #get bounding box coordinates from dataframe
     fileclass = row[3]
@@ -39,10 +42,22 @@ for _, row in images_df.iterrows():
     height_offset = 0
     weight_offset = 0
 
-    if height > weight:
-        weight_offset = int((height - weight)/2)
+    #resize bounding box to target size
+    if height < target_size or weight < target_size:
+        weight_offset = int((target_size-weight)/2)
+        height_offset = int((target_size-height)/2)
+
+        #check if new dimensions are valid
+        if xmax+weight_offset > w or ymax+height_offset > h:
+            print("Dimensions exceeded")
+            #perform inpainting
+            continue
     else:
-        height_offset = int((weight - height)/2)
+        #resize bounding box to square
+        if height > weight:
+            weight_offset = int((height - weight)/2)
+        else:
+            height_offset = int((weight - height)/2)
     
     index += 1
 

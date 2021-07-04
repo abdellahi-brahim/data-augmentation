@@ -102,7 +102,7 @@ def main():
                     os.mkdir(bfolderpath + item['name'])
 
                 filepath = bfolderpath + item['name']
-                downloadfiles(service, item['id'], item['name'], filepath)
+                #downloadfiles(service, item['id'], item['name'], filepath)
 
 
 if __name__ == '__main__':
