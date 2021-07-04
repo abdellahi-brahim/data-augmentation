@@ -57,8 +57,9 @@ for _, row in images_df.iterrows():
 
         #check if new dimensions are valid
         if xmax+weight_offset > w or ymax+height_offset > h:
+            height_offset = 0
+            weight_offset = 0
             inpaint = True
-            continue
     else:
         #resize bounding box to square
         if height > weight:
