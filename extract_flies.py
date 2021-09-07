@@ -63,7 +63,7 @@ for _, row in images_df.iterrows():
         sector = cv2.seamlessClone(sector, square, mask, center, cv2.NORMAL_CLONE)
 
     elif height > target_size or weight > target_size:
-        h_off, w_off = (height-target_size)/2, (weight-target_size)/2
+        h_off, w_off = int((height-target_size)/2), int((weight-target_size)/2)
         sector = img_array[ymin-h_off:ymax+h_off, xmin-w_off:xmax+w_off]
 
     index += 1
