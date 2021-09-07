@@ -54,6 +54,7 @@ for _, row in images_df.iterrows():
     sector = img_array[ymin:ymax, xmin:xmax]
 
     print("Square:", square.shape)
+    print("Center:", center)
 
     #se dimensoes sao inferiores: fazer inpainting
     if height < target_size or weight < target_size:
