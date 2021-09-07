@@ -64,7 +64,7 @@ for _, row in images_df.iterrows():
 
     elif height > target_size or weight > target_size:
         h_off, w_off = (height-target_size)/2, (weight-target_size)/2
-        sector = img2mask[ymin-h_off:ymax+h_off, xmin-w_off:xmax+w_off]
+        sector = img_array[ymin-h_off:ymax+h_off, xmin-w_off:xmax+w_off]
 
     index += 1
 
