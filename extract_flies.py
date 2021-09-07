@@ -15,6 +15,7 @@ fileclass = None
 index = 0
 target_size = 100
 
+#moldura para inpaiting
 square = cv2.imread(path + "square-100.png")
 s_w, s_h, _ = square.shape
 center = (int(s_w/2), int(s_h))
@@ -50,31 +51,20 @@ for _, row in images_df.iterrows():
     height_offset = 0
     weight_offset = 0
 
-    #resize bounding box to target size
-    if height < target_size or weight < target_size:
-        weight_offset = int((target_size-weight)/2)
-        height_offset = int((target_size-height)/2)
-
-        #check if new dimensions are valid
-        if xmax+weight_offset > w or ymax+height_offset > h:
-            height_offset = 0
-            weight_offset = 0
-            inpaint = True
-    else:
-        #resize bounding box to square
-        if height > weight:
-            weight_offset = int((height - weight)/2)
-        else:
-            height_offset = int((weight - height)/2)
     
-    index += 1
+    sector = img_array[ymin:ymax, xmin:xmax]
 
-    sector = img_array[ymin-height_offset:ymax+height_offset, xmin-weight_offset:xmax+weight_offset]
-
-    if sector.size == 0: continue
-
-    if inpaint:
+    #se dimensoes sao inferiores: fazer inpainting
+    if height < target_size or weight < target_size:
         mask = img2mask(sector)
         sector = cv2.seamlessClone(sector, square, mask, center, cv2.NORMAL_CLONE)
+
+    elif height > target_size or weight > target_size:
+        h_off, w_off = (height-target_size)/2, (weight-target_size)/2
+        sector = img2mask[ymin-h_off:ymax+h_off, xmin-w_off:xmax+w_off]
+
+    index += 1
+
+    if sector.size == 0: continue
     
-    cv2.imwrite(fly_dataset + filename.replace('.jpg', '_' + fileclass + '_' + str(index) + '.jpg'), sector)
+    cv2.imwrite(fly_dataset + filename.replace('.jpg', f"'_' + {fileclass} + '_' + {index} + '.jpg'"), sector)
