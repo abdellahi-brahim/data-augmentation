@@ -18,7 +18,7 @@ target_size = 100
 #moldura para inpaiting
 square = cv2.imread(path + "square-100.png")
 s_w, s_h, _ = square.shape
-center = (int(s_w/2), int(s_h))
+center = (int(s_w/2), int(s_h/2))
 
 for _, row in images_df.iterrows():
     #new image
