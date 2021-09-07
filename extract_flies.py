@@ -53,13 +53,13 @@ for _, row in images_df.iterrows():
     
     sector = img_array[ymin:ymax, xmin:xmax]
 
-    print("Square:", square.shape)
-    print("Center:", center)
+    #print("Square:", square.shape)
+    #print("Center:", center)
 
     #se dimensoes sao inferiores: fazer inpainting
     if height < target_size or weight < target_size:
         mask = img2mask(sector)
-        print("Mask:", mask.shape)
+        #print("Mask:", mask.shape)
         sector = cv2.seamlessClone(sector, square, mask, center, cv2.NORMAL_CLONE)
 
     elif height > target_size or weight > target_size:
