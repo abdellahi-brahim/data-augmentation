@@ -64,10 +64,10 @@ for _, row in images_df.iterrows():
 
     elif height > target_size or weight > target_size:
         h_off, w_off = int((height-target_size)/2), int((weight-target_size)/2)
-        sector = img_array[ymin-h_off:ymax+h_off, xmin-w_off:xmax+w_off]
+        sector = img_array[ymin-w_off:ymax+w_off, xmin-h_off:xmax+h_off]
 
     index += 1
 
     if sector.size == 0: continue
     
-    cv2.imwrite(fly_dataset + filename.replace('.jpg', f"'_' + {fileclass} + '_' + {index} + '.jpg'"), sector)
+    cv2.imwrite(fly_dataset + filename.replace('.jpg', f"_{fileclass}_{index}.jpg"), sector)
