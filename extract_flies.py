@@ -46,7 +46,7 @@ for _, row in images_df.iterrows():
     height = ymax - ymin
     weight = xmax - xmin
 
-    #print(f"Height: {height}, Weight: {weight}")
+    print(f"Height: {height}, Weight: {weight}")
     
     height_offset = 0
     weight_offset = 0
